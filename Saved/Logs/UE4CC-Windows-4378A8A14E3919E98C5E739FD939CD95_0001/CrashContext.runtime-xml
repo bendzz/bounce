@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FGenericCrashContext>
+<RuntimeProperties>
+<CrashVersion>3</CrashVersion>
+<CrashGUID>UE4CC-Windows-4378A8A14E3919E98C5E739FD939CD95_0001</CrashGUID>
+<ProcessId>12408</ProcessId>
+<IsInternalBuild>false</IsInternalBuild>
+<IsPerforceBuild>false</IsPerforceBuild>
+<IsSourceDistribution>false</IsSourceDistribution>
+<IsEnsure>false</IsEnsure>
+<IsAssert>true</IsAssert>
+<CrashType>Assert</CrashType>
+<SecondsSinceStart>7120</SecondsSinceStart>
+<GameName>UE4-LatticeTest1c</GameName>
+<ExecutableName>UE4Editor</ExecutableName>
+<BuildConfiguration>Development</BuildConfiguration>
+<GameSessionID></GameSessionID>
+<PlatformName>Windows</PlatformName>
+<PlatformNameIni>Windows</PlatformNameIni>
+<EngineMode>Editor</EngineMode>
+<DeploymentName></DeploymentName>
+<EngineVersion>4.13.2-3172292+++UE4+Release-4.13</EngineVersion>
+<CommandLine>&quot;E:/Unreal Projects 2016/LatticeTest1c/LatticeTest1c.uproject&quot;-EpicPortal </CommandLine>
+<LanguageLCID>1033</LanguageLCID>
+<AppDefaultLocale>en_US</AppDefaultLocale>
+<IsUE4Release>true</IsUE4Release>
+<UserName></UserName>
+<BaseDir>C:/Program Files/Unreal Engine/4.13/Engine/Binaries/Win64/</BaseDir>
+<RootDir>C:/Program Files/Unreal Engine/4.13/</RootDir>
+<MachineId>915F9EE444738D8CFF9F499364C99421</MachineId>
+<EpicAccountId>508d33ebf7254fccbf65e5b2b7bffe7e</EpicAccountId>
+<CallStack></CallStack>
+<SourceContext></SourceContext>
+<UserDescription></UserDescription>
+<UserActivityHint></UserActivityHint>
+<ErrorMessage>Fatal error: [File:D:\Build\++UE4+Release-4.13+Compile\Sync\Engine\Source\Runtime\Engine\Private\ShaderCompiler\ShaderCompiler.cpp] [Line: 213] &nl;ShaderCompileWorker crashed!&nl;Unhandled Exception: EXCEPTION_ACCESS_VIOLATION writing address 0x00000000&nl;	Fatal error!&nl;&nl;Unhandled Exception: EXCEPTION_ACCESS_VIOLATION writing address 0x00000000&nl;&nl;VCRUNTIME140.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderPreprocessor.dll&nl;ShaderCompileWorker-ShaderFormatD3D.dll&nl;ShaderCompileWorker-ShaderFormatD3D.dll&nl;ShaderCompileWorker.exe&nl;ShaderCompileWorker.exe&nl;ShaderCompileWorker.exe&nl;ShaderCompileWorker.exe&nl;ShaderCompileWorker.exe&nl;ShaderCompileWorker.exe&nl;KERNEL32.DLL&nl;ntdll.dll&nl;ntdll.dll&nl;&nl;</ErrorMessage>
+<CrashDumpMode>0</CrashDumpMode>
+<CrashReporterMessage></CrashReporterMessage>
+<Misc.NumberOfCores>4</Misc.NumberOfCores>
+<Misc.NumberOfCoresIncludingHyperthreads>8</Misc.NumberOfCoresIncludingHyperthreads>
+<Misc.Is64bitOperatingSystem>1</Misc.Is64bitOperatingSystem>
+<Misc.CPUVendor>GenuineIntel</Misc.CPUVendor>
+<Misc.CPUBrand>       Intel(R) Core(TM) i7-4820K CPU @ 3.70GHz</Misc.CPUBrand>
+<Misc.PrimaryGPUBrand>NVIDIA GeForce GTX 1080</Misc.PrimaryGPUBrand>
+<Misc.OSVersionMajor>Windows 10</Misc.OSVersionMajor>
+<Misc.OSVersionMinor></Misc.OSVersionMinor>
+<MemoryStats.TotalPhysical>68655927296</MemoryStats.TotalPhysical>
+<MemoryStats.TotalVirtual>140737488224256</MemoryStats.TotalVirtual>
+<MemoryStats.PageSize>65536</MemoryStats.PageSize>
+<MemoryStats.TotalPhysicalGB>64</MemoryStats.TotalPhysicalGB>
+<MemoryStats.AvailablePhysical>36725739520</MemoryStats.AvailablePhysical>
+<MemoryStats.AvailableVirtual>140733231149056</MemoryStats.AvailableVirtual>
+<MemoryStats.UsedPhysical>2372022272</MemoryStats.UsedPhysical>
+<MemoryStats.PeakUsedPhysical>2579369984</MemoryStats.PeakUsedPhysical>
+<MemoryStats.UsedVirtual>3261734912</MemoryStats.UsedVirtual>
+<MemoryStats.PeakUsedVirtual>3470999552</MemoryStats.PeakUsedVirtual>
+<MemoryStats.bIsOOM>0</MemoryStats.bIsOOM>
+<MemoryStats.OOMAllocationSize>0</MemoryStats.OOMAllocationSize>
+<MemoryStats.OOMAllocationAlignment>0</MemoryStats.OOMAllocationAlignment>
+</RuntimeProperties>
+<PlatformProperties>
+<PlatformIsRunningWindows>1</PlatformIsRunningWindows>
+<PlatformCallbackResult>0</PlatformCallbackResult>
+</PlatformProperties>
+</FGenericCrashContext>
