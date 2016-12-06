@@ -2,5 +2,15 @@
 	"FileVersion": 3,
 	"EngineAssociation": "4.13",
 	"Category": "",
-	"Description": ""
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "LatticeTest1d",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	]
 }

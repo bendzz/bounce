@@ -1,0 +1,35 @@
+#Unreal Engine 4
+
+StagedBuilds/
+
+
+#Below folders can (supposedly) be built from the tracked files
+/Binaries
+/DerivedDataCache
+/Intermediate/build
+#/Intermediate
+/Saved
+
+Binaries/
+DerivedDataCache/
+Intermediate/
+Plugins/*/*/Binaries/
+Plugins/*/*/Intermediate/
+Programs/UnrealHeaderTool/
+Programs/UnrealPak/
+Saved/
+Shaders/Binaries/
+Source/*/*/*/obj/
+Source/*/*/obj/
+Source/*/obj/
+
+*.opensdf
+*.sdf
+*.sln
+*.suo
+*.*.suo
+
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/

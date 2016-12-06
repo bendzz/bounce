@@ -1,0 +1,42 @@
+[33mcommit f4c71a11463d2a9239df3f67eb919eb3e7abe043[m
+Author: bendzz <bendzz@live.co.uk>
+Date:   Tue Dec 6 07:21:35 2016 -0700
+
+    Partially rebuilt the loader in C++. Loaded Character mesh. Deleted most starter content
+
+[33mcommit 5361f75a3537efadebbbfd11c930a89960c9d894[m
+Author: bendzz <bendzz@live.co.uk>
+Date:   Tue Dec 6 07:21:12 2016 -0700
+
+    Partially rebuilt the loader in C++. Loaded Character mesh. Deleted most starter content
+
+[33mcommit 0c4e5037b08595899890c3ca65f51815b0000165[m
+Author: bendzz <bendzz@live.co.uk>
+Date:   Tue Dec 6 03:52:05 2016 -0700
+
+    C++ initializer half built. Character model loaded. #2
+
+[33mcommit bf84f13e91c955d4e5f20f0f2ffc734789b37c02[m
+Author: bendzz <bendzz@live.co.uk>
+Date:   Tue Dec 6 02:07:47 2016 -0700
+
+    C++ initializer half built. Character model loaded.
+
+[33mcommit 48e12c0e154fa209bee5516984d1a449386be52f[m
+Merge: becc85d d773d1c
+Author: bendzz <bendzz@live.co.uk>
+Date:   Tue Nov 8 03:57:10 2016 -0700
+
+    Merge branch 'master' of https://github.com/bendzz/bounce
+
+[33mcommit becc85d8110460fac25d3e77e477512a42f84e4e[m
+Author: bendzz <bendzz@live.co.uk>
+Date:   Tue Nov 8 03:48:38 2016 -0700
+
+    first commit
+
+[33mcommit d773d1ca1067b3597e8de19958f2e5ae177a9855[m
+Author: bendzz <bendzz@live.co.uk>
+Date:   Tue Nov 8 03:38:24 2016 -0700
+
+    Initial commit
