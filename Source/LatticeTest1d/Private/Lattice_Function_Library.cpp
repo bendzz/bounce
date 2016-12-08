@@ -21,11 +21,11 @@ int32 oldVoxels[1][1];
 
 //Happy Message
 //FString ULattice_Function_Library::GetHappyMessage()
-bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector latticeSize, const TArray<int32>& voxelElements, const float edgeLength, const UStaticMesh* mesh,
-	TArray<FVector>& OriginalPoints, TArray<FVector2D>& allEdges, TArray<FString>& ElementPointPointers, TArray<FString>& ElementEdgePointers)
+bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector latticeSize, const TArray<int32>& voxelElements, const float edgeLength, const UStaticMesh* mesh, const int32 textureWidth,
+	TArray<FVector>& OriginalPoints, TArray<FVector2D>& allEdges, TArray<FString>& ElementPointPointers, TArray<FString>& ElementEdgePointers, TArray<FVector>& meshPoints, TArray<int32>& meshTriangles, TArray<FVector2D>& meshUVs, TArray<FString>& PointToElementPointers)
 {
 	const FVector voxelSize = latticeSize - 1;
-	
+
 	std::vector<std::vector<std::vector<int32> > > voxelsFromMesh;
 	voxelsFromMesh.resize(latticeSize.Z);
 	for (int z = 0; z < latticeSize.Z; ++z) {
@@ -63,9 +63,10 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 
 				//UE_LOG(LogTemp, Warning, TEXT("vertex location %f %f %f"), loc.X, loc.Y, loc.Z);
 
+				//float scale = 1.0f;
 				float scale = 1.0f;
-				FVector offset = FVector(-30.0f, -50.0f, 100.0f);
-				//FVector offset = FVector(-30.0f, -20.0f, 0.0f);
+				//FVector offset = FVector(-30.0f, -50.0f, 100.0f);
+				FVector offset = FVector(-30.0f, -50.0f, 0.0f);
 
 				int32 x = (loc.X - offset.X) / (edgeLength * scale);
 				int32 y = (loc.Y - offset.Y) / (edgeLength * scale);
@@ -85,7 +86,7 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 			}
 		}
 	}
-	
+
 
 
 	//TArray<int32> ElementEdges
@@ -120,9 +121,15 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 	bool drawEdge = false; bool drawPoint = false; bool oldDrawEdge;
 	int lastPointTouched = 0; int oldLastPointTouched = 0;
 	TArray<int32> touchedVoxels;
-	
+
 	// point[0] is always buggered in physics sim; make it an empty one.
 	OriginalPoints.Add(FVector(0, 0, 0));
+	//float offset = 0.2;
+	meshPoints.Add(FVector(0, 0, 0));
+	meshPoints.Add(FVector(0, 0, 0));
+	meshUVs.Add(FVector2D(0.5f, 0.5f));
+	meshUVs.Add(FVector2D(0.5f, 0.5f));
+
 
 	for (int32 axis = 0; axis < 3; axis++)
 	{
@@ -188,11 +195,14 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 					drawEdge = false;
 					if (voxels[0] != voxels[1] && voxels[0] != voxels[2]) {
 						drawEdge = true;
-					} else if (voxels[1] != voxels[0] && voxels[1] != voxels[3]) {
+					}
+					else if (voxels[1] != voxels[0] && voxels[1] != voxels[3]) {
 						drawEdge = true;
-					} else if (voxels[2] != voxels[0] && voxels[2] != voxels[3]) {
+					}
+					else if (voxels[2] != voxels[0] && voxels[2] != voxels[3]) {
 						drawEdge = true;
-					} else if (voxels[3] != voxels[1] && voxels[3] != voxels[2]) {
+					}
+					else if (voxels[3] != voxels[1] && voxels[3] != voxels[2]) {
 						drawEdge = true;
 					}
 					if (oldDrawEdge) {
@@ -215,6 +225,19 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 						if (filledInPoints[x][y][z] == 0) {
 							lastPointTouched = OriginalPoints.Add(FVector(x*edgeLength, y*edgeLength, z*edgeLength));
 							filledInPoints[x][y][z] = lastPointTouched;
+
+							// add procedural mesh triangle points
+							float offset = 0.2;
+							meshPoints.Add(FVector(x*edgeLength, y*edgeLength, z*edgeLength));
+							meshPoints.Add(FVector(x*edgeLength + offset, y*edgeLength + offset, z*edgeLength + offset));
+
+							// add mesh UVs
+							float U; float V;
+							indexToUVs(lastPointTouched, textureWidth, U, V);
+							meshUVs.Add(FVector2D(U, V));
+							meshUVs.Add(FVector2D(U, V));
+							//meshUVs.Add(FVector2D(0.5f, 0.5f));
+							//meshUVs.Add(FVector2D(0.5f, 0.5f));
 						}
 						else {
 							lastPointTouched = filledInPoints[x][y][z];
@@ -223,7 +246,7 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 							elementPoints[touchedVoxels[t]].insert(lastPointTouched);
 							elementPoints[touchedVoxels[t]].insert(oldLastPointTouched);
 						}
-						
+
 						//UE_LOG(LogTemp, Warning, TEXT("test test %i"), lastPointTouched);
 
 						// draw edge
@@ -244,6 +267,7 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 	}
 
 	ElementPointPointers.SetNum((--elementPoints.end())->first + 1, false);
+	PointToElementPointers.SetNum(OriginalPoints.Num() + 1, false);
 	//ElementEdgePointers.SetNum((--elementEdges.end())->first + 1, false);
 	for (std::map<int32, std::set<int32> >::iterator map = elementPoints.begin(); map != elementPoints.end(); ++map) {
 		//UE_LOG(LogTemp, Warning, TEXT("element %d"), map->first);
@@ -252,6 +276,8 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 			//UE_LOG(LogTemp, Warning, TEXT("point %d"), *it);
 
 			ElementPointPointers[map->first] += FString::FromInt(*it) + ",";
+
+			PointToElementPointers[*it] += FString::FromInt(map->first) + ",";
 		}
 	}
 
@@ -264,6 +290,11 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 			//UE_LOG(LogTemp, Warning, TEXT("edge %d"), *it);
 
 			ElementEdgePointers[map->first] += FString::FromInt(*it) + ",";
+
+			// make polygon triangles
+			meshTriangles.Add(allEdges[*it].X * 2);
+			meshTriangles.Add(allEdges[*it].Y * 2);
+			meshTriangles.Add(allEdges[*it].Y * 2 + 1);
 		}
 	}
 
@@ -314,9 +345,18 @@ int32 ULattice_Function_Library::index3Dto1D(bool checkBounds, int32 x, int32 y,
 			return 0;
 		}
 	}
-	
+
 	int32 i = size.X*size.Y*z + size.X*y + x;
 
 	//UE_LOG(LogTemp, Warning, TEXT("test test %d"), i);
 	return i;
+}
+
+void ULattice_Function_Library::indexToUVs(int32 index, int32 width, float &U, float &V) {
+	int32 y = index / width;
+	int32 x = index - (y * width);
+	float fwidth = width; // so dumb. Makes the division result in a float, not int
+	U = x / fwidth;
+	V = y / fwidth;
+	//UE_LOG(LogTemp, Warning, TEXT("test test %f %f %i %i %f %i"), U, V, x, y, x / width, width);
 }

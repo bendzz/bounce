@@ -20,11 +20,11 @@ class LATTICETEST1D_API ULattice_Function_Library : public UBlueprintFunctionLib
 	public:
 		UFUNCTION(BlueprintCallable, Category = "SoftBody")
 		//static bool LatticeBuilder(const FVector latticeSize, const TArray<int32>& voxelElements, const float edgeLength, TArray<FVector>& OriginalPoints, TArray<FVector2D>& allEdges, TArray<FString>& ElementPointPointers, TArray<FString>& ElementEdgePointers);
-		static bool LatticeBuilder(const bool useMesh, const FVector latticeSize, const TArray<int32>& voxelElements, const float edgeLength, const UStaticMesh* mesh, TArray<FVector>& OriginalPoints, TArray<FVector2D>& allEdges, TArray<FString>& ElementPointPointers, TArray<FString>& ElementEdgePointers);
+		static bool LatticeBuilder(const bool useMesh, const FVector latticeSize, const TArray<int32>& voxelElements, const float edgeLength, const UStaticMesh* mesh, const int32 textureWidth, TArray<FVector>& OriginalPoints, TArray<FVector2D>& allEdges, TArray<FString>& ElementPointPointers, TArray<FString>& ElementEdgePointers, TArray<FVector>& meshPoints, TArray<int32>& meshTriangles, TArray<FVector2D>& meshUVs, TArray<FString>& PointToElementPointers);
 	private:
 		static int32 getVoxel(int32 x, int32 y, int32 z, std::vector<std::vector<std::vector<int32> > >& voxelsFromMesh, const FVector voxelSize);
 		static int32 getVoxel(int32 x, int32 y, int32 z, const TArray<int32>& voxelElements, const FVector voxelSize);
 		static int32 index3Dto1D(bool checkBounds, FVector indices, const FVector size, bool &valid);
 		static int32 index3Dto1D(bool checkBounds, int32 x, int32 y, int32 z, const FVector size, bool &valid);
-	
+		static void indexToUVs(int32 index, int32 width, float &U, float &V);
 };
