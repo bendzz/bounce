@@ -130,6 +130,8 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 	meshUVs.Add(FVector2D(0.5f, 0.5f));
 	meshUVs.Add(FVector2D(0.5f, 0.5f));
 
+	// Same with element 0???
+	elementPoints[0].insert(0);
 
 	for (int32 axis = 0; axis < 3; axis++)
 	{
@@ -243,8 +245,10 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 							lastPointTouched = filledInPoints[x][y][z];
 						}
 						for (int32 t = 0; t < touchedVoxels.Num(); t++) {
-							elementPoints[touchedVoxels[t]].insert(lastPointTouched);
-							elementPoints[touchedVoxels[t]].insert(oldLastPointTouched);
+							if (touchedVoxels[t] != 0) {
+								elementPoints[touchedVoxels[t]].insert(lastPointTouched);
+								elementPoints[touchedVoxels[t]].insert(oldLastPointTouched);
+							}
 						}
 
 						//UE_LOG(LogTemp, Warning, TEXT("test test %i"), lastPointTouched);
@@ -268,17 +272,26 @@ bool ULattice_Function_Library::LatticeBuilder(const bool useMesh, const FVector
 
 	ElementPointPointers.SetNum((--elementPoints.end())->first + 1, false);
 	PointToElementPointers.SetNum(OriginalPoints.Num() + 1, false);
+
+	// set first to 0
+	//ElementPointPointers[0] += FString::FromInt(0) + ",";
+	//PointToElementPointers[0] += FString::FromInt(0) + ",";
+
 	//ElementEdgePointers.SetNum((--elementEdges.end())->first + 1, false);
 	for (std::map<int32, std::set<int32> >::iterator map = elementPoints.begin(); map != elementPoints.end(); ++map) {
-		//UE_LOG(LogTemp, Warning, TEXT("element %d"), map->first);
-		for (std::set<int32>::iterator it = map->second.begin(); it != map->second.end(); ++it) {
-			//UE_LOG(LogTemp, Warning, TEXT("edge %d"), (--elementEdges.end())->first);
-			//UE_LOG(LogTemp, Warning, TEXT("point %d"), *it);
+		//if (map->first != 0) {
+			//UE_LOG(LogTemp, Warning, TEXT("element %d"), map->first);
+			for (std::set<int32>::iterator it = map->second.begin(); it != map->second.end(); ++it) {
+				//UE_LOG(LogTemp, Warning, TEXT("edge %d"), (--elementEdges.end())->first);
+				//UE_LOG(LogTemp, Warning, TEXT("point %d"), *it);
 
-			ElementPointPointers[map->first] += FString::FromInt(*it) + ",";
-
-			PointToElementPointers[*it] += FString::FromInt(map->first) + ",";
-		}
+				if (map->first != 0) {
+					ElementPointPointers[map->first] += FString::FromInt(*it) + ",";
+					PointToElementPointers[*it] += FString::FromInt(map->first) + ",";
+				}
+				
+			}
+		//}
 	}
 
 	//ElementEdgePointers.SetNum(elementEdges.end()->first, false);
